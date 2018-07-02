@@ -18,6 +18,10 @@ TARGET_HW_DISK_ENCRYPTION := true
 # Display
 TARGET_SCREEN_DENSITY := 480
 
+# Init
+TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_xz2c
+TARGET_RECOVERY_DEVICE_MODULES += //$(DEVICE_PATH):libinit_xz2c
+
 # Kernel
 TARGET_KERNEL_CONFIG := tama_apollo_defconfig
 
