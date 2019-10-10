@@ -33,20 +33,18 @@
 
 using android::init::property_set;
 
-void property_override(char const prop[], char const value[]) {
+std::vector<std::string> ro_props_default_source_order = {
+    "", "odm.", "product.", "system.", "vendor.",
+};
+
+void property_override(char const prop[], char const value[], bool add = true) {
   prop_info *pi;
 
   pi = (prop_info *)__system_property_find(prop);
   if (pi)
     __system_property_update(pi, value, strlen(value));
-  else
+  else if (add)
     __system_property_add(prop, strlen(prop), value, strlen(value));
-}
-
-void property_override_dual(char const system_prop[], char const vendor_prop[],
-                            char const value[]) {
-  property_override(system_prop, value);
-  property_override(vendor_prop, value);
 }
 
 void target_load_properties() {
@@ -65,13 +63,26 @@ void target_load_properties() {
     return;
   }
 
-  property_set("ro.semc.product.model", model.c_str());
-  property_override_dual("ro.product.device", "ro.vendor.product.device",
-                         model.c_str());
-  property_override_dual("ro.product.model", "ro.vendor.product.model",
-                         model.c_str());
-  property_override_dual("ro.product.name", "ro.vendor.product.name",
-                         model.c_str());
+  const auto set_ro_build_prop = [](const std::string &source,
+                                    const std::string &prop,
+                                    const std::string &value) {
+    auto prop_name = "ro." + source + "build." + prop;
+    property_override(prop_name.c_str(), value.c_str(), false);
+  };
+
+  const auto set_ro_product_prop = [](const std::string &source,
+                                      const std::string &prop,
+                                      const std::string &value) {
+    auto prop_name = "ro.product." + source + prop;
+    property_override(prop_name.c_str(), value.c_str(), false);
+  };
+
+  property_set("ro.semc.product.model", model);
+  for (const auto &source : ro_props_default_source_order) {
+    set_ro_product_prop(source, "device", model);
+    set_ro_product_prop(source, "name", model);
+    set_ro_product_prop(source, "model", model);
+  }
 
   if (model == "H8324") {
     property_set("persist.multisim.config", "dsds");
@@ -80,18 +91,20 @@ void target_load_properties() {
     property_override(
         "ro.build.description",
         "H8324-user 10 52.1.A.0.672 052001A000067202006556692 release-keys");
-    property_override_dual("ro.build.fingerprint",
-                           "ro.vendor.build.fingerprint",
-                           "Sony/H8324/H8324:10/52.1.A.0.672/"
-                           "052001A000067202006556692:user/release-keys");
+    for (const auto &source : ro_props_default_source_order) {
+      set_ro_build_prop(source, "fingerprint",
+                        "Sony/H8324/H8324:10/52.1.A.0.672/"
+                        "052001A000067202006556692:user/release-keys");
+    }
   } else if (model == "H8314") {
     property_set("ro.telephony.default_network", "9");
     property_override(
         "ro.build.description",
         "H8314-user 10 52.1.A.0.672 052001A000067202006556692 release-keys");
-    property_override_dual("ro.build.fingerprint",
-                           "ro.vendor.build.fingerprint",
-                           "Sony/H8314/H8314:10/52.1.A.0.672/"
-                           "052001A000067202006556692:user/release-keys");
+    for (const auto &source : ro_props_default_source_order) {
+      set_ro_build_prop(source, "fingerprint",
+                        "Sony/H8324/H8324:10/52.1.A.0.672/"
+                        "052001A000067202006556692:user/release-keys");
+    }
   }
 }
