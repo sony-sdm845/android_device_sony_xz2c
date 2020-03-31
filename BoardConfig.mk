@@ -25,6 +25,9 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth/include
 # Kernel
 TARGET_KERNEL_CONFIG := tama_apollo_defconfig
 
+# Treble
+BOARD_VNDK_RUNTIME_DISABLE := true
+
 # Selinux
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
