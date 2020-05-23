@@ -90,21 +90,21 @@ void target_load_properties() {
     property_set("ro.telephony.default_network", "9,1");
     property_override(
         "ro.build.description",
-        "H8324-user 10 52.1.A.0.672 052001A000067202006556692 release-keys");
+        "H8324-user 10 52.1.A.2.1 05200010A002000102006556692 release-keys");
     for (const auto &source : ro_props_default_source_order) {
       set_ro_build_prop(source, "fingerprint",
-                        "Sony/H8324/H8324:10/52.1.A.0.672/"
-                        "052001A000067202006556692:user/release-keys");
+                        "Sony/H8324/H8324:10/52.1.A.2.1/"
+                        "05200010A002000102006556692:user/release-keys");
     }
   } else if (model == "H8314") {
     property_set("ro.telephony.default_network", "9");
     property_override(
         "ro.build.description",
-        "H8314-user 10 52.1.A.0.672 052001A000067202006556692 release-keys");
+        "H8314-user 10 52.1.A.2.1 052001A000067202006556692 release-keys");
     for (const auto &source : ro_props_default_source_order) {
       set_ro_build_prop(source, "fingerprint",
-                        "Sony/H8324/H8324:10/52.1.A.0.672/"
-                        "052001A000067202006556692:user/release-keys");
+                        "Sony/H8314/H8314:10/52.1.A.2.1/"
+                        "05200010A002000102006556692:user/release-keys");
     }
   }
 }
