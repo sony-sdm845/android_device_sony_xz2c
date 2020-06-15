@@ -570,17 +570,6 @@ vendor/lib64/vendor.display.color@1.1.so
 vendor/lib64/vendor.display.postproc@1.0.so
 vendor/lib64/vendor.qti.hardware.qdutils_disp@1.0.so
 
-# Fingerprint firmware
-vendor/firmware/fpctzfingerprint.b00
-vendor/firmware/fpctzfingerprint.b01
-vendor/firmware/fpctzfingerprint.b02
-vendor/firmware/fpctzfingerprint.b03
-vendor/firmware/fpctzfingerprint.b04
-vendor/firmware/fpctzfingerprint.b05
-vendor/firmware/fpctzfingerprint.b06
-vendor/firmware/fpctzfingerprint.b07
-vendor/firmware/fpctzfingerprint.mdt
-
 # GNSS
 -vendor/app/CACertService/CACertService.apk
 vendor/bin/hw/android.hardware.gnss@2.0-service-qti
