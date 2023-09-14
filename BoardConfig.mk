@@ -13,7 +13,7 @@ DEVICE_PATH := device/sony/xz2c
 TARGET_SCREEN_DENSITY := 480
 
 # Kernel
-TARGET_KERNEL_CONFIG := tama_apollo_defconfig
+TARGET_KERNEL_CONFIG := vendor/tama_apollo_defconfig
 
 # HIDL
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
